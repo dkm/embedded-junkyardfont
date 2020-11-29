@@ -1,16 +1,16 @@
 [package]
-name = "profont"
-description = "The ProFont monospace font for use with the embedded-graphics crate."
+name = "embedded-junkyardfont"
+description = "The JunkYard font for use with the embedded-graphics crate."
 version = "0.4.0"
-authors = ["Wesley Moore <wes@wezm.net>"]
+authors = ["Wesley Moore <wes@wezm.net>", "Marc Poulhiès <dkm@kataplop.net>"]
 
-documentation = "https://docs.rs/profont"
-repository = "https://github.com/wezm/profont"
+documentation = "https://docs.rs/embedded-junkyardfont"
+repository = "https://github.com/dkm/embedded-junkyardfont"
 
 readme = "README.md"
-license = "MIT"
+license = "GPL"
 
-keywords = ["bitmap", "monochrome", "font", "monospace"]
+keywords = ["bitmap", "monochrome", "font"]
 categories = ["rendering", "embedded", "no-std"]
 
 [dependencies]

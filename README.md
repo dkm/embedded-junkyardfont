@@ -1,47 +1,46 @@
-# ProFont
+# Junkyard Font
 
-[The ProFont monospace font][profont] for use with the [embedded-graphics] crate.
+[The Junkyard Font][junkyard] for use with the [embedded-graphics] crate.
 
-[![crates.io](https://img.shields.io/crates/v/profont.svg)](https://crates.io/crates/profont)
-[![Documentation](https://docs.rs/profont/badge.svg)][crate-docs]
-
-<img src="https://raw.githubusercontent.com/wezm/profont/master/data/IMG_2198.jpg" width="459" alt="Photo of ProFront on an ePaper display" />
-
-`profont` is licensed under the [MIT license][MIT].
+`junkyard` is licensed under the [GPL license][GPL].
 
 ## Specimens
 
-ProFont is available in 7 sizes:
+Junkyard font is available in 8 sizes:
 
 ### 7 Point
 
-![7 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont7Point.png)
+![7 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont7Point.png)
 
 ### 9 Point
 
-![9 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont9Point.png)
+![9 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont9Point.png)
 
 ### 10 Point
 
-![10 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont10Point.png)
+![10 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont10Point.png)
 
 ### 12 Point
 
-![12 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont12Point.png)
+![12 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont12Point.png)
 
 ### 14 Point
 
-![14 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont14Point.png)
+![14 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont14Point.png)
 
 ### 18 Point
 
-![18 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont18Point.png)
+![18 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont18Point.png)
 
 ### 24 Point
 
-![24 Point ProFont](https://raw.githubusercontent.com/wezm/profont/master/data/ProFont24Point.png)
+![24 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont24Point.png)
+
+### 70 Point
+
+![70 Point Junkyard Font](https://raw.githubusercontent.com/dkm/embedded-junkyardfont/master/data/JunkyardFont70Point.png)
 
 [embedded-graphics]: https://github.com/jamwaffles/embedded-graphics
-[profont]: https://web.archive.org/web/20180412214402/http://tobiasjung.name/profont/
-[MIT]: https://github.com/wezm/profont/blob/master/LICENSE
-[crate-docs]: https://docs.rs/profont
+[junkyard]: https://blogfonts.com/junkyard.font
+[GPL]: https://github.com/dkm/embedded-junkyardfont/blob/master/gpl-2.0.txt
+

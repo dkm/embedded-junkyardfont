@@ -3,8 +3,8 @@ RAW = ${PNG:.png=.raw}
 
 all: ${RAW}
 
-TTFFONT:=ProFontIIx.ttf
-FONTPREFIX:=ProFont
+TTFFONT:=Junkyard.ttf
+FONTPREFIX:=JunkyardFont
 
 CARGO_ARGS:=run --release --features=exe --  $(TTFFONT) $(FONTPREFIX)
 
@@ -16,10 +16,9 @@ pngs:
 	cargo  $(CARGO_ARGS) 14
 	cargo  $(CARGO_ARGS) 18
 	cargo  $(CARGO_ARGS) 24
+	cargo  $(CARGO_ARGS) 70
 
-.SUFFIXES: .png .raw
-
-.png.raw:
-	convert ${.IMPSRC} -depth 1 gray:${.TARGET}
+%.raw: %.png
+	convert $^ -depth 1 gray:$@
 
 .PHONY: pngs
