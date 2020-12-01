@@ -6,17 +6,20 @@ all: ${RAW}
 TTFFONT:=Junkyard.ttf
 FONTPREFIX:=JunkyardFont
 
-CARGO_ARGS:=run --release --features=exe --  $(TTFFONT) $(FONTPREFIX)
+CARGO_ARGS:=run --release --features=exe --  --ttf $(TTFFONT) --pngprefix $(FONTPREFIX) --libfile ../src/fonts.rs
 
 pngs:
-	cargo  $(CARGO_ARGS) 7
-	cargo  $(CARGO_ARGS) 9
-	cargo  $(CARGO_ARGS) 10
-	cargo  $(CARGO_ARGS) 12
-	cargo  $(CARGO_ARGS) 14
-	cargo  $(CARGO_ARGS) 18
-	cargo  $(CARGO_ARGS) 24
-	cargo  $(CARGO_ARGS) 70
+	echo "use embedded_graphics::{fonts::Font, geometry::Size};" > ../src/fonts.rs
+	echo "use {char_offset_impl, CHARS_PER_ROW};" >> ../src/fonts.rs
+
+	cargo  $(CARGO_ARGS) --size 7
+	cargo  $(CARGO_ARGS) --size 9
+	cargo  $(CARGO_ARGS) --size 10
+	cargo  $(CARGO_ARGS) --size 12
+	cargo  $(CARGO_ARGS) --size 14
+	cargo  $(CARGO_ARGS) --size 18
+	cargo  $(CARGO_ARGS) --size 24
+	cargo  $(CARGO_ARGS) --size 70
 
 %.raw: %.png
 	convert $^ -depth 1 gray:$@

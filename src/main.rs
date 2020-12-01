@@ -17,6 +17,8 @@ mod exe {
     extern crate pathfinder_geometry;
 
     use std::fs::File;
+    use std::fs::OpenOptions;
+    use std::io::prelude::*;
 
     use self::clap::{App, Arg, ArgMatches};
     use self::euclid::Size2D;
@@ -39,22 +41,35 @@ mod exe {
             .short("d")
             .long("dumpglyph");
 
+        let libfile_arg = Arg::with_name("LIBFILE")
+            .help("output file for lib")
+            .required(true)
+            .short("l")
+            .takes_value(true)
+            .long("libfile");
         let ttf_filename_arg = Arg::with_name("TTF")
             .help("TTF file name")
             .required(true)
-            .index(1);
+            .short("t")
+            .long("ttf")
+            .takes_value(true);
         let png_prefix_arg = Arg::with_name("PNG-PREFIX")
             .help("Prefix for PNG")
             .required(true)
-            .index(2);
+            .short("p")
+            .long("pngprefix")
+            .takes_value(true);
         let size_arg = Arg::with_name("SIZE")
             .help("Font size in blocks")
             .default_value("32")
-            .index(3);
+            .short("s")
+            .long("size")
+            .takes_value(true);
 
         App::new("create-font")
             .version("0.1")
             .about("Simple tool to create image from TTF for creating font for embedded-graphics`")
+            .arg(libfile_arg)
             .arg(ttf_filename_arg)
             .arg(dumpglyph_arg)
             .arg(png_prefix_arg)
@@ -68,9 +83,12 @@ mod exe {
         let ttf_filename = matches.value_of("TTF").unwrap();
         let png_prefix = matches.value_of("PNG-PREFIX").unwrap();
         let font_size: f32 = matches.value_of("SIZE").unwrap().parse().unwrap();
-        let dump_glyph_enable  = matches.is_present("dumpglyph");
+        let dump_glyph_enable = matches.is_present("dumpglyph");
+
+        let libfilename = matches.value_of("LIBFILE").unwrap();
 
         let mut file = File::open(ttf_filename).unwrap();
+        let mut libfile = OpenOptions::new().append(true).open(libfilename).unwrap();
 
         let font = Font::from_file(&mut file, 0).expect("error loading font");
 
@@ -153,7 +171,6 @@ mod exe {
                 )
                 .expect("error rasterizing glyph");
 
-
                 if dump_glyph_enable {
                     dump_glyph(glyph, &canvas);
                 }
@@ -184,7 +201,27 @@ mod exe {
             }
         }
 
+        let libfilecontent = format!("
+            /// The {fsize} point size with a character size of {width}x{heigth} pixels.
+            #[derive(Debug, Copy, Clone)]
+            pub struct {prefix}{fsize}Point{{}}
+            impl Font for {prefix}{fsize}Point {{
+              const FONT_IMAGE: &'static [u8] = include_bytes!(\"../data/{prefix}{fsize}Point.raw\");
+                const CHARACTER_SIZE: Size = Size::new({width}, {heigth});
+                const FONT_IMAGE_WIDTH: u32 = Self::CHARACTER_SIZE.width * CHARS_PER_ROW;
+                fn char_offset(c: char) -> u32 {{
+                    char_offset_impl(c)
+                }}
+            }}",
+            width = char_size.width,
+            heigth = char_size.height,
+            fsize = font_size,
+            prefix = png_prefix
+        );
+        libfile.write_all(libfilecontent.as_bytes()).unwrap();
+
         let filename = format!("{}{}Point.png", png_prefix, font_size);
+
         imgbuf.save(&filename).expect("error saving PNG");
         println!("Wrote {} with character size of {}", filename, char_size);
     }
