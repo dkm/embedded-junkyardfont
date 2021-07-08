@@ -201,22 +201,29 @@ mod exe {
             }
         }
 
-        let libfilecontent = format!("
+        let libfilecontent = format!(
+            "
             /// The {fsize} point size with a character size of {width}x{heigth} pixels.
-            #[derive(Debug, Copy, Clone)]
-            pub struct {prefix}{fsize}Point{{}}
-            impl Font for {prefix}{fsize}Point {{
-              const FONT_IMAGE: &'static [u8] = include_bytes!(\"../data/{prefix}{fsize}Point.raw\");
-                const CHARACTER_SIZE: Size = Size::new({width}, {heigth});
-                const FONT_IMAGE_WIDTH: u32 = Self::CHARACTER_SIZE.width * CHARS_PER_ROW;
-                fn char_offset(c: char) -> u32 {{
-                    char_offset_impl(c)
-                }}
-            }}",
+            pub const {uprefix}_{fsize}_POINT: MonoFont = MonoFont {{
+               image: ImageRaw::new_binary(
+                  include_bytes!(\"../data/{prefix}{fsize}Point.raw\"),
+                  CHARS_PER_ROW * {width},
+               ),
+               glyph_mapping: &GLYPH_MAPPING,
+               character_size: Size::new({width}, {heigth}),
+               character_spacing: 0,
+               baseline: ({baseline})/2,
+               underline: DecorationDimensions::new({sheigth}, 1),
+               strikethrough: DecorationDimensions::new({swidth}, 1),
+            }};",
             width = char_size.width,
+            swidth = (char_size.width as f32 * 0.8) as u32,
             heigth = char_size.height,
+            sheigth = (char_size.height as f32 * 0.8) as u32,
+            baseline = (char_size.width + char_size.height) / 2 as u32,
             fsize = font_size,
-            prefix = png_prefix
+            prefix = png_prefix,
+            uprefix = png_prefix.to_uppercase(),
         );
         libfile.write_all(libfilecontent.as_bytes()).unwrap();
 

@@ -3,6 +3,7 @@ name = "embedded-various-fonts"
 description = "Various fonts for use with the embedded-graphics crate."
 version = "0.4.0"
 authors = ["Wesley Moore <wes@wezm.net>", "Marc Poulhiès <dkm@kataplop.net>"]
+edition = "2018"
 
 documentation = "https://docs.rs/embedded-various-fonts"
 repository = "https://github.com/dkm/embedded-various-fonts"
@@ -14,7 +15,7 @@ keywords = ["bitmap", "monochrome", "font"]
 categories = ["rendering", "embedded", "no-std"]
 
 [dependencies]
-embedded-graphics = "0.6"
+embedded-graphics = "0.7"
 
 font-kit = { version = "0.10", optional = true }
 euclid = { version = "0.19", optional = true }
